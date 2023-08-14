@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta name="description" content="Authorization"/>
+    <link rel="shortcut icon" href="logo-tsu.png" type="image/x-icon"/>
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <title>Authorization</title>
+</head>
+<body>
+<div class="signed">Вы авторизованы</div>
+
+</body>
+</html>
+<style>
+    body{
+        background-image: url("../img/cat.jpg");
+        background-repeat: no-repeat;
+    }
+    .signed{
+        text-align: center;
+        margin-top: 40px;
+        font-family: 'Poppins', sans-serif;
+        font-size: 56px;
+        font-weight: 600;
+        line-height: 64px;
+
+    }
+    .clear{
+        height: 0px;
+        width:100%;
+        clear:both;
+    }
+    @media (max-width: 425px) {
+        .signed {
+            font-size: 30px;
+        }
+        body{
+            vertical-align: bottom;
+            background-size: 100% 100%;
+        }
+    }
+</style>
+<script>
+    if(localStorage.token){
+        console.log('Signed')
+    }else{
+        alert('Not signed')
+        window.location.href = '../dist/index.html';
+    }
+</script>
