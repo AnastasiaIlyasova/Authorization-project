@@ -31,7 +31,8 @@ const loginEmailPassword = async () => {
         console.log(userCredential.user.accessToken)
         alert(`You are signed with email: ${emailValue}`)
         localStorage.setItem('token', 'userCredential.user.accessToken');
-        window.location.href = 'Authorization4/dist/redirect.html';
+       // window.location.href = 'Authorization4/dist/redirect.html';
+        window.location.href = 'redirect.html';
     }
     catch (e){
         switch (e.code){

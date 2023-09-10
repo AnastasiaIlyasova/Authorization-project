@@ -45,7 +45,8 @@ const createAccount = async () =>{
             .then(() => {
                 alert('Email verification sent')
             localStorage.setItem('token', 'userCredential.user.accessToken');
-                window.location.href = '../dist/redirect.html';
+               // window.location.href = '../dist/redirect.html';
+                window.location.href = 'redirect.html';
             });
     }
    catch (error){
@@ -68,7 +69,8 @@ googleBtn.addEventListener('click', (e)=>{
             const token = credential.accessToken;
             // The signed-in user info and redirect.
             const user = result.user;
-            window.location.href = '../dist/redirect.html';
+           // window.location.href = '../dist/redirect.html';
+            window.location.href = 'redirect.html';
 
         }).catch((error) => {
         // Handle Errors here.
