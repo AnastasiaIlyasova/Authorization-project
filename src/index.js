@@ -16,45 +16,51 @@ const app = initializeApp(firebaseConfig);
 import { getAuth, createUserWithEmailAndPassword,  sendEmailVerification, GoogleAuthProvider, signInWithRedirect, getRedirectResult} from "firebase/auth";
 
 const auth = getAuth(app);
-let btn = document.getElementById("btn");
-let login =document.getElementById("login");
-let passwordEl = document.getElementById("password");
-const email = login.value
-const password = passwordEl.value
-createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-   const user = userCredential.user;
-   console.log(user)
-    })
-    .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-    });
+let btnUp = document.getElementById("btn");
 
-const createAccount = async () =>{
-    let btn = document.getElementById("btn");
+btnUp.addEventListener('click', (e)=>{
     let login =document.getElementById("login");
     let passwordEl = document.getElementById("password");
     const email = login.value
     const password = passwordEl.value
+    let loader = document.querySelector('.loader')
+    let bg = document.querySelector('.background')
 
-    try{
-        const userCredential = await createUserWithEmailAndPassword(auth, email, password)
-        console.log(userCredential.user)
-        sendEmailVerification(auth.currentUser)
-            .then(() => {
-                alert('Email verification sent')
-            localStorage.setItem('token', 'userCredential.user.accessToken');
-               // window.location.href = '../dist/redirect.html';
-                window.location.href = 'redirect.html';
-            });
-    }
-   catch (error){
-        console.log(error)
-    }
-}
-btn.addEventListener('click', createAccount)
+    loader.style.display = 'block'
+    bg.classList.add('bg-loader');
+    console.log(password)
+    console.log(email)
 
+    createUserWithEmailAndPassword(auth, email, password)
+        .then((userCredentials)=> {
+            sendEmailVerification(auth.currentUser)
+                .then(()=> {
+                    alert('Email verification was sent')
+                    localStorage.setItem('token', 'userCredential.user.accessToken')
+                    window.location.href = 'redirect.html'})
+            const user = userCredentials.user;
+            console.log(user)
+        })
+        .catch ((error)=>{
+            loader.style.display = 'none'
+            bg.classList.remove('bg-loader');
+            console.log(error)
+
+            switch (error.code){
+                case 'auth/weak-password':
+                    alert("Weak password, use more than 5 symbols")
+                    break
+                case 'auth/invalid-email':
+                    alert("Invalid email")
+                    break
+                case 'auth/email-already-in-use':
+                    alert("Email already in use")
+                    break
+                default:
+                    alert("Something wrong")
+            }
+        })
+})
 
 //google auth
 let googleBtn = document.getElementById("googleBtn");
@@ -64,36 +70,27 @@ googleBtn.addEventListener('click', (e)=>{
     signInWithRedirect(auth, provider);
     getRedirectResult(auth)
         .then((result) => {
-            // This gives you a Google Access Token. You can use it to access Google APIs.
             const credential = GoogleAuthProvider.credentialFromResult(result);
             const token = credential.accessToken;
-            // The signed-in user info and redirect.
             const user = result.user;
-           // window.location.href = '../dist/redirect.html';
             window.location.href = 'redirect.html';
-
         }).catch((error) => {
-        // Handle Errors here.
         const errorCode = error.code;
         const errorMessage = error.message;
         const email = error.customData.email;
-        // The AuthCredential type that was used.
         const credential = GoogleAuthProvider.credentialFromError(error);
     });
 })
 
-
-/*
-    const hideBtn = document.querySelector('.hide')
-    const inputHide =document.querySelector('.passwordInput')
+//hide password
+const hideBtn = document.getElementById('hide')
+const inputHide =document.getElementById('password')
 
 function showPassword(){
- if(inputHide.getAttribute('type')=== 'password'){
-             inputHide.setAttribute('type', 'text')
-         }else{
-         inputHide.setAttribute('type', 'password')
-         }
-   }
-
+    if(inputHide.getAttribute('type')=== 'text'){
+        inputHide.setAttribute('type', 'password')
+    }else{
+        inputHide.setAttribute('type', 'text')
+    }
+}
 hideBtn.addEventListener('click', showPassword)
-*/

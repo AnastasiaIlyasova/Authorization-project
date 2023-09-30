@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <meta name="description" content="Authorization"/>
-    <link rel="shortcut icon" href="logo-tsu.png" type="image/x-icon"/>
     <base href="/">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,6 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;800&display=swap" rel="stylesheet">
     <title>Authorization</title>
 <script defer src="main.js"></script><script defer src="login.js"></script></head>
+<div class="background"></div>
 <body class="bg-login">
 <div class="container-login flex-center">
     <div class="modal">
@@ -32,9 +32,8 @@
             <input id="email-in" class="email--input" type="email">
             <p class="password">Password</p>
             <input id="password-in" class="password--input" type="password">
-            <div class="flex-center">
             <button id="btn--signin" class="continue">Continue</button>
-            </div>
+                <div class="loader"></div>
             <div class="dividers"><span class="line"></span>or<span class="line"></span></div>
             <button class="btn google">
                 Continue with Google
@@ -45,6 +44,7 @@
         </div>
     </div>
 </div>
+<div class="loader"></div>
 <script src="./dist/login.js"></script>
 </body>
 </html>

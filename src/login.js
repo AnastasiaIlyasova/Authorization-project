@@ -22,10 +22,14 @@ const auth = getAuth(app);
 const loginEmailPassword = async () => {
     let emailIn =document.getElementById("email-in");
     let passwordIn = document.getElementById("password-in");
+    let loader = document.querySelector('.loader')
+    let bg = document.querySelector('.background')
     const emailValue = emailIn.value
     const passwordValue = passwordIn.value
 
     try {
+        loader.style.display = 'block'
+        bg.classList.add('bg-loader');
         const userCredential = await signInWithEmailAndPassword(auth, emailValue, passwordValue);
         console.log(userCredential.user)
         console.log(userCredential.user.accessToken)
@@ -35,6 +39,8 @@ const loginEmailPassword = async () => {
         window.location.href = 'redirect.html';
     }
     catch (e){
+        loader.style.display = 'none'
+        bg.classList.remove('bg-loader');
         switch (e.code){
             case 'auth/user-not-found':
                 alert("User not found")
