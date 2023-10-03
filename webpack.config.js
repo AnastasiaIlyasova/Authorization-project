@@ -27,14 +27,14 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             template: 'main/index.html',
-            chunks: 'main'
+            chunks: ['main']
         }),
 
 
         new HtmlWebpackPlugin({
             filename: 'login.html',
             template: 'main/login.html',
-            chunks: 'login'
+            chunks: ['login']
         }),
 
         new HtmlWebpackPlugin({
