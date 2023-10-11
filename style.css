@@ -340,6 +340,11 @@ input{
         transform: rotate(360deg);
     }
 }
+@media (max-width: 1590px) {
+    .container {
+        max-width: 440px;
+    }
+}
 @media (max-width: 1440px) {
     .left{
         width: 100%;
